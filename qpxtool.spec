@@ -21,7 +21,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 QPxTool gives you access to all available Quality Checks (Q-Checks) on
 written and blank media, that are available for your drive. This will
 help you to find the right media and the optimized writing speed for
-your hardware, which will increase the change for a long data lifetime.
+your hardware, which will increase the chance for a long data lifetime.
+
+%description -l pl.UTF-8
+QPxTool udostępnia wszystkie możliwe testy jakości (Q-Checks) na
+zapisanym i czystym nośniku, jakie są dostępne w posiadanym napędzie.
+Pomaga to odnaleźć odpowiedni nośnik i zoptymalizować prędkość zapisu
+dla sprzętu, co zwiększy szanse długiego życia zapisanych danych.
 
 %prep
 %setup -q
