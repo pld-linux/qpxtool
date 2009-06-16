@@ -1,17 +1,18 @@
 #
 # TODO:
-#	- add missing BRs,
-#	- devel subpackage
+#	- devel subpackage if useful some day
 #
 Summary:	CD/DVD quality checker
 Summary(pl.UTF-8):	Tester jakości płyt CD/DVD
 Name:		qpxtool
 Version:	0.6.1
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/qpxtool/%{name}-%{version}.tar.bz2
 # Source0-md5:	4fa7ce8aa9c13aa2db0a8b5224acb906
+Patch0:		%{name}-llh.patch
+Patch1:		%{name}-0.6.1-libata.txt
 URL:		http://qpxtool.sourceforge.net/
 BuildRequires:	qmake
 BuildRequires:	qt-devel
@@ -31,6 +32,8 @@ dla sprzętu, co zwiększy szanse długiego życia zapisanych danych.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p0
 
 %build
 export QTDIR="%{_prefix}"
