@@ -47,6 +47,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	PREFIX="%{_prefix}" \
+	LIBDIR="%{_libdir}" \
 	MANDIR="%{_mandir}" \
 	QTDIR="%{_prefix}"
 
