@@ -1,21 +1,22 @@
 #
 # TODO:
+#	- separate GUI from CLI and libs
 #	- devel subpackage if useful some day
 #
 Summary:	CD/DVD quality checker
 Summary(pl.UTF-8):	Tester jakości płyt CD/DVD
 Name:		qpxtool
-Version:	0.6.1
+Version:	0.7.1_002
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://dl.sourceforge.net/qpxtool/%{name}-%{version}.tar.bz2
-# Source0-md5:	4fa7ce8aa9c13aa2db0a8b5224acb906
-Patch0:		%{name}-llh.patch
-Patch1:		%{name}-0.6.1-libata.txt
+Source0:	http://downloads.sourceforge.net/qpxtool/%{name}-%{version}.tar.bz2
+# Source0-md5:	755321a0196b16d06857550aac74ff50
 URL:		http://qpxtool.sourceforge.net/
-BuildRequires:	qmake
-BuildRequires:	qt-devel
+BuildRequires:	QtGui-devel
+BuildRequires:	QtNetwork-devel
+BuildRequires:	qt4-linguist
+BuildRequires:	qt4-qmake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -32,24 +33,20 @@ dla sprzętu, co zwiększy szanse długiego życia zapisanych danych.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p0
+sed -e 's|lrelease|lrelease-qt4|' -i configure
 
 %build
-export QTDIR="%{_prefix}"
-export QMAKESPEC="linux-g++"
-%{__make} \
-	CFLAGS="%{rpmcflags}"
+./configure \
+	--prefix="%{_prefix}" \
+	%{?debug:enable-debug}
+export CXXFLAGS="%{rpmcflags}"
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	PREFIX="%{_prefix}" \
-	LIBDIR="%{_libdir}" \
-	MANDIR="%{_mandir}" \
-	QTDIR="%{_prefix}"
+%{__make} -j1 install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -59,7 +56,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog README TODO slack-desc
-%attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
-%{_mandir}/man8/*.8*
+%doc AUTHORS ChangeLog README SupportedDevices TODO slack-desc
+%attr(755,root,root) %{_bindir}/[cfqr]*
+%attr(755,root,root) %{_libdir}/libq*.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libq*.so.0
+%attr(755,root,root) %{_libdir}/%{name}
+%attr(755,root,root) %{_sbindir}/pxfw
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/locale
+%lang(de) %{_datadir}/%{name}/locale/%{name}.de_DE.qm
+%lang(ru) %{_datadir}/%{name}/locale/%{name}.ru_RU.qm
+%{_desktopdir}/%{name}.desktop
+%{_pixmapsdir}/%{name}.png
+%{_mandir}/man1/[cfqr]*.1*
+%{_mandir}/man8/pxfw.8*
