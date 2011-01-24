@@ -15,6 +15,7 @@ Source0:	http://downloads.sourceforge.net/qpxtool/%{name}-%{version}.tar.bz2
 URL:		http://qpxtool.sourceforge.net/
 BuildRequires:	QtGui-devel
 BuildRequires:	QtNetwork-devel
+BuildRequires:	qt4-build
 BuildRequires:	qt4-linguist
 BuildRequires:	qt4-qmake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -23,7 +24,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 QPxTool gives you access to all available Quality Checks (Q-Checks) on
 written and blank media, that are available for your drive. This will
 help you to find the right media and the optimized writing speed for
-your hardware, which will increase the chance for a long data lifetime.
+your hardware, which will increase the chance for a long data
+lifetime.
 
 %description -l pl.UTF-8
 QPxTool udostępnia wszystkie możliwe testy jakości (Q-Checks) na
