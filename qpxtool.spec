@@ -7,11 +7,12 @@ Summary:	CD/DVD quality checker
 Summary(pl.UTF-8):	Tester jakości płyt CD/DVD
 Name:		qpxtool
 Version:	0.7.1_002
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://downloads.sourceforge.net/qpxtool/%{name}-%{version}.tar.bz2
 # Source0-md5:	755321a0196b16d06857550aac74ff50
+Patch0:		%{name}-libpng15.patch
 URL:		http://qpxtool.sourceforge.net/
 BuildRequires:	QtGui-devel
 BuildRequires:	QtNetwork-devel
@@ -35,13 +36,15 @@ dla sprzętu, co zwiększy szanse długiego życia zapisanych danych.
 
 %prep
 %setup -q
+%patch0 -p1
 sed -e 's|lrelease|lrelease-qt4|' -i configure
 
 %build
 ./configure \
 	--prefix="%{_prefix}" \
 	%{?debug:enable-debug}
-export CXXFLAGS="%{rpmcflags}"
+CXXFLAGS="%{rpmcflags}" \
+CXX="%{__cxx}" \
 %{__make}
 
 %install
