@@ -7,7 +7,7 @@ Summary:	CD/DVD quality checker
 Summary(pl.UTF-8):	Tester jakości płyt CD/DVD
 Name:		qpxtool
 Version:	0.7.1_002
-Release:	4
+Release:	5
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://downloads.sourceforge.net/qpxtool/%{name}-%{version}.tar.bz2
