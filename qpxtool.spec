@@ -36,7 +36,7 @@ dla sprzętu, co zwiększy szanse długiego życia zapisanych danych.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 sed -e 's|lrelease|lrelease-qt4|' -i configure
 
 %build
