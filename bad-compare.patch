@@ -1,0 +1,11 @@
+--- qpxtool-0.8.0/gui/src/mainwindow.cpp~	2020-01-28 17:56:02.000000000 +0100
++++ qpxtool-0.8.0/gui/src/mainwindow.cpp	2026-06-06 10:31:26.470515113 +0200
+@@ -427,7 +427,7 @@
+ 	int idx;
+ 	QAction *act = (QAction*) sender();
+ 	idx = act_sblist.indexOf(act);
+-	if (act<0) return;
++	if (idx<0) return;
+ 	mwidget->selectTab(idx);
+ }
+ 

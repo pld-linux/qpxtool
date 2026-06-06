@@ -1,0 +1,10 @@
+--- qpxtool-0.8.0/gui/include/device.h~	2020-01-28 17:56:02.000000000 +0100
++++ qpxtool-0.8.0/gui/include/device.h	2026-06-06 10:37:47.729083219 +0200
+@@ -17,6 +17,7 @@
+ #include <QStringList>
+ #include <QList>
+ #include <QMutex>
++#include <QIODevice>
+ 
+ #include <sys/time.h>
+ #include <inttypes.h>

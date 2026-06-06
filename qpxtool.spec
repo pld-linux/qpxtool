@@ -6,19 +6,22 @@
 Summary:	CD/DVD quality checker
 Summary(pl.UTF-8):	Tester jakości płyt CD/DVD
 Name:		qpxtool
-Version:	0.7.1_002
-Release:	6
+Version:	0.8.0
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://downloads.sourceforge.net/qpxtool/%{name}-%{version}.tar.bz2
-# Source0-md5:	755321a0196b16d06857550aac74ff50
-Patch0:		%{name}-libpng15.patch
+# Source0-md5:	f4b09f8d5aa533f680c8bcce19c1072e
+Patch0:		bad-compare.patch
+Patch1:		iwyu.patch
 URL:		http://qpxtool.sourceforge.net/
-BuildRequires:	QtGui-devel
-BuildRequires:	QtNetwork-devel
-BuildRequires:	qt4-build
-BuildRequires:	qt4-linguist
-BuildRequires:	qt4-qmake
+BuildRequires:	Qt5Core-devel
+BuildRequires:	Qt5Gui-devel
+BuildRequires:	Qt5Network-devel
+BuildRequires:	Qt5PrintSupport-devel
+BuildRequires:	qt5-build
+BuildRequires:	qt5-linguist
+BuildRequires:	qt5-qmake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -37,13 +40,17 @@ dla sprzętu, co zwiększy szanse długiego życia zapisanych danych.
 %prep
 %setup -q
 %patch -P0 -p1
-sed -e 's|lrelease|lrelease-qt4|' -i configure
+%patch -P1 -p1
+sed -e 's|lrelease|lrelease-qt5|' -i configure
 
 %build
 ./configure \
-	--prefix="%{_prefix}" \
+	--prefix=%{_prefix} \
+	--libdir=%{_libdir} \
+	--mandir=%{_mandir} \
+	--qmake=qmake-qt5 \
 	%{?debug:enable-debug}
-CXXFLAGS="%{rpmcflags}" \
+CXXFLAGS="%{rpmcxxflags}" \
 CXX="%{__cxx}" \
 %{__make}
 
